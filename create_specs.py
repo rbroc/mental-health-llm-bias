@@ -22,7 +22,7 @@ PHQ_9 = {
 def specs():
     spec_dict = dict()
     spec_dict["phq-9"] = PHQ_9
-    with open("mappings/specs.json", "w") as fh:
+    with open("specs.json", "w") as fh:
         json.dump(spec_dict, fh)
 
 

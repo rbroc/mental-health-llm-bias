@@ -5,7 +5,7 @@ from itertools import product
 
 
 def generate(n=1000, questionnaire="phq-9"):
-    with open(f"mappings/specs.json") as fh:
+    with open(f"specs.json") as fh:
         specs = json.load(fh)
     n_q = specs[questionnaire]["number"]
     n_s = list(range(specs[questionnaire]["scores"]))
@@ -16,7 +16,7 @@ def generate(n=1000, questionnaire="phq-9"):
     scores["total"] = scores.apply(lambda x: x.sum(), axis=1)
     scores["severity"] = pd.cut(scores["total"], bins=cutoffs, labels=labels)
     scores = scores.groupby("severity").sample(n=int(n / len(labels)))
-    scores.to_csv(f"mappings/scores/{questionnaire}.csv", index=False)
+    scores.to_csv(f"scores/{questionnaire}.csv", index=False)
 
 
 if __name__ == "__main__":

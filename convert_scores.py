@@ -2,8 +2,8 @@ import pandas as pd
 import json
 
 def convert(questionnaire='phq-9'):
-    scores = pd.read_csv(f'mappings/scores/{questionnaire}.csv')
-    specs = json.load(open('mappings/specs.json'))[questionnaire]
+    scores = pd.read_csv(f'scores/{questionnaire}.csv')
+    specs = json.load(open('specs.json'))[questionnaire]
     stories = []
     for i, r in scores.iterrows():
         targets = r.tolist()
