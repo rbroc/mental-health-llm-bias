@@ -16,7 +16,7 @@ PHQ_9 = {
                       "felt bad about myself — or that I am a failure or have let myself or my family down",
                       "had trouble concentrating on things, such as reading the newspaper or watching television",
                       "moved or spoken so slowly that other people could have noticed", # missing a piece
-                      "thoughts that I would be better off dead or of hurting myself in some way"],
+                      "had thoughts that I would be better off dead or of hurting myself in some way"],
     }
 
 def specs():
