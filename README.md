@@ -8,5 +8,5 @@
 ##### Important notes
 - Right now, the code only supports PHQ-9
 - This could be extended to a multilingual scenario
-- There is no demographic information right now, this needs to be added
-- Also, there is no explicit prompt, but I'm thinking we could both ask the model open diagnosis questions ("Which psychiatric condition might I have?"), as well severity assessment either in numerical form ("How severe is my depression, on a scale from 0 to 27?") or in qualitative form ("How severe is my depression? Choose between None or Minimal, Mild, Moderate, Moderately Severe, Severe")
+- There is no demographic information in the `prompt` column of the output csv right now, this needs to be added
+- Also, there is no explicit instruction, but I'm thinking we could both ask the model open diagnosis questions ("Which psychiatric condition might I have?"), as well severity assessment either in numerical form ("How severe is my depression, on a scale from 0 to 27?") or in qualitative form ("How severe is my depression? Choose between None or Minimal, Mild, Moderate, Moderately Severe, Severe")
