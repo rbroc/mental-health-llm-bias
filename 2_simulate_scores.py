@@ -4,7 +4,7 @@ import numpy as np
 from itertools import product
 
 
-def generate(n=1000, questionnaire="phq-9"):
+def generate(n=100, questionnaire="phq-9"):
     with open(f"specs.json") as fh:
         specs = json.load(fh)
     n_q = specs[questionnaire]["number"]
