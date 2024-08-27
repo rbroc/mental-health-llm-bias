@@ -8,7 +8,11 @@
 - - `5_add_demographic_premise_and_instructions.py` adds the demographic premise and the instructions (both experimental factors) to the example, yielding the final evaluation dataset
 
 ##### TODO:
+- Set seeds
 - What demographic factors do we use? Which levels? (see `1_create_questionnaire_specs.py`)
+- Add responses
+- Decide on number of examples to sample and sampling strategies
+- Decide on paraphrases
 
 ##### Important notes
 - Right now, the code only supports PHQ-9

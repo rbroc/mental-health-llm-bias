@@ -13,9 +13,13 @@ def generate(n=100, questionnaire="phq-9"):
     labels = specs[questionnaire]["labels"]
     d = list(product(n_s, repeat=n_q))
     scores = pd.DataFrame(d, columns=[f"q_{i}" for i in range(n_q)])
-    scores["total"] = scores.apply(lambda x: x.sum(), axis=1)
-    scores["severity"] = pd.cut(scores["total"], bins=cutoffs, labels=labels)
-    scores = scores.groupby("severity").sample(n=int(n / len(labels)))
+    scores["severity_score"] = scores.apply(lambda x: x.sum(), axis=1)
+    scores["severity_qual"] = pd.cut(
+        scores["severity_score"], bins=cutoffs, labels=labels
+    )
+    scores = scores.groupby("severity_qual").sample(
+        n=int(n / len(labels))
+    )  # TODO: set seed
     scores.to_csv(f"scores/{questionnaire}.csv", index=False)
 
 

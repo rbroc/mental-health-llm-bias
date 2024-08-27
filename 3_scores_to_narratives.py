@@ -3,14 +3,19 @@ import json
 
 persons = ["I", "she", "he", "they", "you"]
 verbs = ["have", "has", "has", "have", "have"]
+pronouns = ["my", "her", "his", "them", "your"]
+pronrefs = ["myself", "herself", "himself", "themselves", "yourself"]
+pnames = ["first", "third", "third", "third", "second"]
 
-def make_narratives(questionnaire='phq-9'):
-    scores = pd.read_csv(f'scores/{questionnaire}.csv')
-    specs = json.load(open('specs.json'))[questionnaire]
+
+def make_narratives(questionnaire="phq-9"):
+    scores = pd.read_csv(f"scores/{questionnaire}.csv")
+    specs = json.load(open("specs.json"))[questionnaire]
     stories = []
     for _, r in scores.iterrows():
-
-        for person, verb in zip(persons, verbs):
+        for person, verb, pronoun, pronref, name in zip(
+            persons, verbs, pronouns, pronrefs, pnames
+        ):
             targets = r.tolist()
             text = f"{specs['premise']}"
             for question_index, option_index in enumerate(targets[:-2]):
@@ -22,11 +27,20 @@ def make_narratives(questionnaire='phq-9'):
                     txt += f" {specs['options'][option_index]} {specs['questions'][question_index]}."
                 else:
                     txt += f" {specs['questions'][question_index]} {specs['options'][option_index]}."
-                text += f' {txt}'
-            stories.append([text] + targets + [person]) # for final dataframe
-    
-    df = pd.DataFrame(stories, columns=['prompt'] + scores.columns.tolist() + ['person'])
-    df.to_csv(f'outputs/{questionnaire}.csv', index=False)
+                txt = txt.replace("PERSON", person)
+                txt = txt.replace("PRONSIMPLE", pronoun)
+                txt = txt.replace("PRONSELF", pronref)
+                text += f" {txt}"
+            stories.append([text] + targets + [person] + [name])
 
-if __name__=='__main__':
+    df = pd.DataFrame(
+        stories,
+        columns=["narrative_raw"]
+        + scores.columns.tolist()
+        + ["pronoun", "person_condition"],
+    )
+    df.to_csv(f"outputs/{questionnaire}.csv", index=False)
+
+
+if __name__ == "__main__":
     make_narratives()

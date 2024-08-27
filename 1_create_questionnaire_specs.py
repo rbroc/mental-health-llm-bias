@@ -1,5 +1,4 @@
 import json
-import numpy as np
 
 PHQ_9 = {
     "number": 9,
@@ -14,10 +13,10 @@ PHQ_9 = {
         "had trouble falling or staying asleep, or sleeping too much",
         "felt tired or having little energy",
         "had poor appetite or overeaten",
-        "felt bad about myself — or that I am a failure or have let myself or my family down",
+        "felt bad about PRONSELF — or that PERSON am a failure or have let PRONSELF or PRONSIMPLE family down",
         "had trouble concentrating on things, such as reading the newspaper or watching television",
         "moved or spoken so slowly that other people could have noticed",  # missing a piece
-        "had thoughts that I would be better off dead or of hurting myself in some way",
+        "had thoughts that PERSON would be better off dead or of hurting PRONSELF in some way",
     ],
 }
 
@@ -42,7 +41,7 @@ DEMOGRAPHICS = {
         "Australasia",
         "the Pacific Islands",
     ],  # TODO: this is temporary
-} 
+}
 
 
 def specs():
