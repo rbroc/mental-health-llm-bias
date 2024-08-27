@@ -10,9 +10,9 @@
 ##### TODO:
 - Set seeds
 - Double-check response conditions (multiclass? open differential diagnosis?) and demographic options
-- Simplify conditions and number of examples? E.g., doing some post-hoc analysis
+- Simplify conditions and decide on number of examples?
 - @Flor: do paraphrases
-- @Flor: refine the prompts and run
+- @Flor: evaluate LLMs
 
 ##### Important notes
 - Right now, the code only supports PHQ-9
