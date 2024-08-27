@@ -4,16 +4,29 @@ import numpy as np
 import itertools
 import random
 
-subjects = {
-    "first": "I am",
-    "second": "You are",
-    "third": "The person who wrote this text is",
+verbs = {"I": "am", "you": "are", "he": "is", "she": "is", "they": "are"}
+
+phrases = {
+    "I": "do I have",
+    "you": "do you have",
+    "he": "does he have",
+    "she": "does she have",
+    "they": "do they have",
 }
+
+condict = {"phq-9": "depression"}  # TODO: edit if we add more questionnaires
+conditions = [
+    "depression",
+    "generalized anxiety disorder",
+    "schizophrenia",
+]  # TODO: remove if we add more questionnaires
 
 
 def make_final_data(questionnaire="phq-9", n_dem_combinations=100):
-    dems = json.load(open("dems.json"))
-    narratives = pd.read_csv(f"outputs/{questionnaire}.csv", index_col=None)
+    dems = json.load(open("outputs/specs/demographics.json"))
+    q_specs = json.load(open("outputs/specs/questionnaires.json"))[questionnaire]
+    response_opts = json.load(open("outputs/specs/responses.json"))
+    narratives = pd.read_csv(f"outputs/narratives/{questionnaire}.csv", index_col=None)
 
     ages = []
     for d in dems["age"]:
@@ -39,15 +52,29 @@ def make_final_data(questionnaire="phq-9", n_dem_combinations=100):
     data = []
     for d, n in combos:
         narrative_data = n.tolist()
-        dem_premise = (
-            f'{subjects[n["person_condition"]]} a {d[0]}-year-old {d[1]} from {d[2]}.'
-        )
-        # Duplicate examples by whether we feed the narrative or a paraphase
+        dem_premise = f'{n["pronoun"].capitalize()} {verbs[n["pronoun"]]} a {d[0]}-year-old {d[1]} from {d[2]}.'
         for par_condition in ["narrative_raw"]:  # "narrative_paraphrased" TODO: edit
             narrative = n[par_condition]
-            # Duplicate examples by response conditions
-            for resp_condition in ["binary", "severity", "score"]:  # TODO: edit
-                response = "Please provide an answer."  # TODO: edit with actual conditions
+            for resp_condition in [
+                "binary_simple",
+                "binary_explain",
+                "severity_qual",
+                "severity_score",
+                "multiclass",
+            ]:  # TODO: potentially edit
+                response = response_opts[resp_condition]
+                response = response.replace(
+                    "PRONPHRASE", f"{phrases[n['pronoun']].capitalize()}"
+                )
+                response = response.replace("CONDNAME", f"{condict[questionnaire]}")
+                response = response.replace("AUXVERB", f"{verbs[n['pronoun']]}")
+                response = response.replace("PERSON", f"{n['pronoun']}")
+                response = response.replace("CONDOPTIONS", ", ".join(conditions))
+                response = response.replace(
+                    "SEVRANGE",
+                    f'{str(q_specs["cutoffs"][0]+1)} to {str(q_specs["cutoffs"][-1])}',
+                )
+                response = response.replace("SEVOPTIONS", ", ".join(q_specs["labels"]))
                 txt = f"{dem_premise} {narrative} {response}"
                 data.append(
                     [txt] + narrative_data + [resp_condition, par_condition] + list(d)
@@ -64,8 +91,8 @@ def make_final_data(questionnaire="phq-9", n_dem_combinations=100):
             "region_condition",
         ],
     )
-    df = df.drop(['narrative_raw'], axis=1) # TODO: add narrative_paraphrase
-    df.to_csv(f"outputs/{questionnaire}_final.csv", index=False)
+    df = df.drop(["narrative_raw"], axis=1)  # TODO: add narrative_paraphrase
+    df.to_csv(f"outputs/final/{questionnaire}_final.csv.gz", index=False, compression='gzip')
 
 
 if __name__ == "__main__":

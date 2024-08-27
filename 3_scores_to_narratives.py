@@ -9,8 +9,8 @@ pnames = ["first", "third", "third", "third", "second"]
 
 
 def make_narratives(questionnaire="phq-9"):
-    scores = pd.read_csv(f"scores/{questionnaire}.csv")
-    specs = json.load(open("specs.json"))[questionnaire]
+    scores = pd.read_csv(f"outputs/scores/{questionnaire}.csv")
+    specs = json.load(open("outputs/specs/questionnaires.json"))[questionnaire]
     stories = []
     for _, r in scores.iterrows():
         for person, verb, pronoun, pronref, name in zip(
@@ -39,7 +39,7 @@ def make_narratives(questionnaire="phq-9"):
         + scores.columns.tolist()
         + ["pronoun", "person_condition"],
     )
-    df.to_csv(f"outputs/{questionnaire}.csv", index=False)
+    df.to_csv(f"outputs/narratives/{questionnaire}.csv", index=False)
 
 
 if __name__ == "__main__":

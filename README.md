@@ -9,10 +9,11 @@
 
 ##### TODO:
 - Set seeds
-- What demographic factors do we use? Which levels? (see `1_create_questionnaire_specs.py`)
-- Add responses
-- Decide on number of examples to sample and sampling strategies
-- Decide on paraphrases
+- Double-check response conditions and demographic options
+- Decide on whether conditions are too many, as well as number of examples and sampling strategies
+- Fix demographic prompt for third person: _the person who wrote this text..._
+- @Flor: do paraphrases
+- @Flor: refine the prompts and run
 
 ##### Important notes
 - Right now, the code only supports PHQ-9

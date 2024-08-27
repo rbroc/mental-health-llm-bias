@@ -5,7 +5,7 @@ from itertools import product
 
 
 def generate(n=100, questionnaire="phq-9"):
-    with open(f"specs.json") as fh:
+    with open(f"outputs/specs/questionnaires.json") as fh:
         specs = json.load(fh)
     n_q = specs[questionnaire]["number"]
     n_s = list(range(specs[questionnaire]["scores"]))
@@ -20,7 +20,7 @@ def generate(n=100, questionnaire="phq-9"):
     scores = scores.groupby("severity_qual").sample(
         n=int(n / len(labels))
     )  # TODO: set seed
-    scores.to_csv(f"scores/{questionnaire}.csv", index=False)
+    scores.to_csv(f"outputs/scores/{questionnaire}.csv", index=False)
 
 
 if __name__ == "__main__":
