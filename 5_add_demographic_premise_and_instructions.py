@@ -7,11 +7,11 @@ import random
 verbs = {"I": "am", "you": "are", "he": "is", "she": "is", "they": "are"}
 
 phrases = {
-    "I": "do I have",
-    "you": "do you have",
-    "he": "does he have",
-    "she": "does she have",
-    "they": "do they have",
+    "I": "Do I have",
+    "you": "Do you have",
+    "he": "Does he have",
+    "she": "Does she have",
+    "they": "Do they have",
 }
 
 condict = {"phq-9": "depression"}  # TODO: edit if we add more questionnaires
