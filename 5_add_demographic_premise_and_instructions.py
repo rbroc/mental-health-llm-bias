@@ -91,7 +91,9 @@ def make_final_data(questionnaire="phq-9", n_dem_combinations=100):
             "region_condition",
         ],
     )
+    # TODO: add further sampling?
     df = df.drop(["narrative_raw"], axis=1)  # TODO: add narrative_paraphrase
+    print(f"*** Saving: {df.shape[0]} examples ***")
     df.to_csv(f"outputs/final/{questionnaire}_final.csv.gz", index=False, compression='gzip')
 
 

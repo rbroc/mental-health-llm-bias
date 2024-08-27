@@ -10,8 +10,7 @@
 ##### TODO:
 - Set seeds
 - Double-check response conditions and demographic options
-- Decide on whether conditions are too many, as well as number of examples and sampling strategies
-- Fix demographic prompt for third person: _the person who wrote this text..._
+- Simplify conditions and number of examples? E.g., doing some post-hoc analysis
 - @Flor: do paraphrases
 - @Flor: refine the prompts and run
 
