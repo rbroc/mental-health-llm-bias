@@ -9,7 +9,7 @@
 
 ##### TODO:
 - Set seeds
-- Double-check response conditions and demographic options
+- Double-check response conditions (multiclass? open differential diagnosis?) and demographic options
 - Simplify conditions and number of examples? E.g., doing some post-hoc analysis
 - @Flor: do paraphrases
 - @Flor: refine the prompts and run
