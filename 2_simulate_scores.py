@@ -1,6 +1,5 @@
 import pandas as pd
 import json
-import numpy as np
 from itertools import product
 
 
@@ -18,8 +17,8 @@ def generate(n=100, questionnaire="phq-9"):
         scores["severity_score"], bins=cutoffs, labels=labels
     )
     scores = scores.groupby("severity_qual").sample(
-        n=int(n / len(labels))
-    )  # TODO: set seed
+        n=int(n / len(labels)), random_state=42,
+    )
     scores.to_csv(f"outputs/scores/{questionnaire}.csv", index=False)
 
 

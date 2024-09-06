@@ -1,11 +1,11 @@
 import pandas as pd
 import json
 
-persons = ["I", "she", "he", "they", "you"]
-verbs = ["have", "has", "has", "have", "have"]
-pronouns = ["my", "her", "his", "them", "your"]
-pronrefs = ["myself", "herself", "himself", "themselves", "yourself"]
-pnames = ["first", "third", "third", "third", "second"]
+persons = ["I", "she", "he", "you"] # "they"
+verbs = ["have", "has", "has", "have"] # "have"
+pronouns = ["my", "her", "his", "your"] # "them"
+pronrefs = ["myself", "herself", "himself", "yourself"] #  "themselves"
+pnames = ["first", "third", "third", "second"] # "third"
 
 
 def make_narratives(questionnaire="phq-9"):
@@ -16,6 +16,7 @@ def make_narratives(questionnaire="phq-9"):
         for person, verb, pronoun, pronref, name in zip(
             persons, verbs, pronouns, pronrefs, pnames
         ):
+            # This creates the narratives with first, second, and third person pronouns
             targets = r.tolist()
             text = f"{specs['premise']}"
             for question_index, option_index in enumerate(targets[:-2]):

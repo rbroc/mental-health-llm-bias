@@ -4,15 +4,14 @@ import numpy as np
 import itertools
 import random
 
-verbs = {"I": "am", "you": "are", "he": "is", "she": "is", "they": "are"}
+verbs = {"I": "am", "you": "are", "he": "is", "she": "is",} #TODO:  "they": "are"
 
 phrases = {
     "I": "Do I have",
     "you": "Do you have",
     "he": "Does he have",
     "she": "Does she have",
-    "they": "Do they have",
-}
+} #TODO: "they": "Do they have"
 
 condict = {"phq-9": "depression"}  # TODO: edit if we add more questionnaires
 conditions = [
@@ -28,10 +27,11 @@ def make_final_data(questionnaire="phq-9", n_dem_combinations=100):
     response_opts = json.load(open("outputs/specs/responses.json"))
     narratives = pd.read_csv(f"outputs/narratives/{questionnaire}.csv", index_col=None)
 
-    ages = []
-    for d in dems["age"]:
-        ages += list(np.random.randint(low=d[0], high=d[1] + 1, size=10))
-    dem_combos = list(itertools.product(ages, dems["gender"], dems["region"]))
+    # TODO: only doing gender for now, removing
+    #ages = []
+    #for d in dems["age"]:
+    #    ages += list(np.random.randint(low=d[0], high=d[1] + 1, size=5))
+    dem_combos = list(itertools.product(dems["gender"])) # TODO: add ages, dems["region"]
     k = min(n_dem_combinations, len(dem_combos))
     print(f"*** Sampling {k} demographic profiles ***")
     dem_combos = random.sample(dem_combos, k=k)
@@ -42,9 +42,9 @@ def make_final_data(questionnaire="phq-9", n_dem_combinations=100):
         (d, n)
         for d, n in combos
         if not (
-            ((n["pronoun"] == "she") and (d[1] != "woman"))
-            or ((n["pronoun"] == "he") and (d[1] != "man"))
-            or ((n["pronoun"] == "they") and (d[1] != "non-binary person"))
+            ((n["pronoun"] == "she") and (d[0] != "woman"))
+            or ((n["pronoun"] == "he") and (d[0] != "man"))
+           # or ((n["pronoun"] == "they") and (d[0] != "non-binary person")) # TODO: add again?
         )
     ]
 
@@ -52,8 +52,9 @@ def make_final_data(questionnaire="phq-9", n_dem_combinations=100):
     data = []
     for d, n in combos:
         narrative_data = n.tolist()
-        dem_premise = f'{n["pronoun"].capitalize()} {verbs[n["pronoun"]]} a {d[0]}-year-old {d[1]} from {d[2]}.'
-        for par_condition in ["narrative_raw"]:  # "narrative_paraphrased" TODO: edit
+        dem_premise = f'{n["pronoun"].capitalize()} {verbs[n["pronoun"]]} a {d[0]}.' # TODO: reintroduce additional parameters
+        # dem_premise = f'{n["pronoun"].capitalize()} {verbs[n["pronoun"]]} a {d[1]}-year-old {d[0]} from {d[2]}.'
+        for par_condition in ["narrative_raw", "narrative_paraphrased"]:
             narrative = n[par_condition]
             for resp_condition in [
                 "binary_simple",
@@ -61,7 +62,7 @@ def make_final_data(questionnaire="phq-9", n_dem_combinations=100):
                 "severity_qual",
                 "severity_score",
                 "multiclass",
-            ]:  # TODO: potentially edit
+            ]:
                 response = response_opts[resp_condition]
                 response = response.replace(
                     "PRONPHRASE", f"{phrases[n['pronoun']].capitalize()}"
@@ -86,13 +87,13 @@ def make_final_data(questionnaire="phq-9", n_dem_combinations=100):
         + [
             "response_condition",
             "paraphrase_condition",
-            "age_condition",
+            # "age_condition", #TODO reintroduce
             "gender_condition",
-            "region_condition",
+            # "region_condition", #TODO: reintroduce
         ],
     )
     # TODO: add further sampling?
-    df = df.drop(["narrative_raw"], axis=1)  # TODO: add narrative_paraphrase
+    df = df.drop(["narrative_raw", "narrative_paraphrased"], axis=1)
     print(f"*** Saving: {df.shape[0]} examples ***")
     df.to_csv(
         f"outputs/final/{questionnaire}_final.csv.gz", index=False, compression="gzip"

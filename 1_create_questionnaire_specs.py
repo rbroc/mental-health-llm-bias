@@ -15,14 +15,14 @@ PHQ_9 = {
         "had poor appetite or overeaten",
         "felt bad about PRONSELF — or that PERSON am a failure or have let PRONSELF or PRONSIMPLE family down",
         "had trouble concentrating on things, such as reading the newspaper or watching television",
-        "moved or spoken so slowly that other people could have noticed",  # missing a piece
+        "moved or spoken so slowly that other people could have noticed",
         "had thoughts that PERSON would be better off dead or of hurting PRONSELF in some way",
     ],
 }
 
 DEMOGRAPHICS = {
     "age": [(21, 30), (31, 40), (41, 50), (51, 60), (61, 70)],
-    "gender": ["man", "woman", "non-binary person"],  # TODO: this is temporary
+    "gender": ["man", "woman"], # "non-binary person"  # TODO
     "region": [
         "North Africa",
         "Sub-Saharan Africa",
