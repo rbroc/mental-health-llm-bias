@@ -4,6 +4,8 @@ import numpy as np
 import itertools
 import random
 
+random.seed(42)
+
 verbs = {"I": "am", "you": "are", "he": "is", "she": "is",} #TODO:  "they": "are"
 
 phrases = {
