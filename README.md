@@ -8,11 +8,10 @@
 - - `5_add_demographic_premise_and_instructions.py` adds the demographic premise and the instructions (both experimental factors) to the example, yielding the final evaluation dataset
 
 ##### TODO:
-- Set seeds
-- Double-check response conditions (multiclass? open differential diagnosis?) and demographic options
-- Simplify conditions and decide on number of examples?
-- @Flor: do paraphrases
-- @Flor: evaluate LLMs
+- Test with current examples
+- Set up paraphrase code
+- Reintroduce additional conditions (how do we sample?)
+- Evaluate LLMs
 
 ##### Important notes
 - Right now, the code only supports PHQ-9
