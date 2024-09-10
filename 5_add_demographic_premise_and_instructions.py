@@ -7,7 +7,7 @@ import random
 random.seed(42)
 
 verbs = {"I": "am", "you": "are", "he": "is", "she": "is",} #TODO:  "they": "are"
-
+possessives = {"I": "my", "you": "your", "he": "his", "she": "her",} #TODO:  "they": "their"
 phrases = {
     "I": "Do I have",
     "you": "Do you have",
@@ -73,11 +73,13 @@ def make_final_data(questionnaire="phq-9", n_dem_combinations=100):
                 response = response.replace("AUXVERB", f"{verbs[n['pronoun']]}")
                 response = response.replace("PERSON", f"{n['pronoun']}")
                 response = response.replace("CONDOPTIONS", ", ".join(conditions))
+                response = response.replace("PRONSIMPLE", f"{possessives[n['pronoun']]}")
                 response = response.replace(
                     "SEVRANGE",
                     f'{str(q_specs["cutoffs"][0]+1)} to {str(q_specs["cutoffs"][-1])}',
                 )
-                response = response.replace("SEVOPTIONS", ", ".join(q_specs["labels"]))
+                sev_labels = [f"'{s}'" for s in q_specs["labels"]]
+                response = response.replace("SEVOPTIONS", ", ".join(sev_labels))
                 txt = f"{dem_premise} {narrative} {response}"
                 data.append(
                     [txt] + narrative_data + [resp_condition, par_condition] + list(d)
