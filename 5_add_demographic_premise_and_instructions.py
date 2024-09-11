@@ -17,9 +17,9 @@ phrases = {
 
 condict = {"phq-9": "depression"}  # TODO: edit if we add more questionnaires
 conditions = [
-    "depression",
-    "generalized anxiety disorder",
-    "schizophrenia",
+    "Depression",
+    "Generalized Anxiety Disorder",
+    "Schizophrenia",
 ]  # TODO: remove if we add more questionnaires
 
 
@@ -72,7 +72,8 @@ def make_final_data(questionnaire="phq-9", n_dem_combinations=100):
                 response = response.replace("CONDNAME", f"{condict[questionnaire]}")
                 response = response.replace("AUXVERB", f"{verbs[n['pronoun']]}")
                 response = response.replace("PERSON", f"{n['pronoun']}")
-                response = response.replace("CONDOPTIONS", ", ".join(conditions))
+                cond_labels = [f"'{s}'" for s in conditions]
+                response = response.replace("CONDOPTIONS", ", ".join(cond_labels))
                 response = response.replace("PRONSIMPLE", f"{possessives[n['pronoun']]}")
                 response = response.replace(
                     "SEVRANGE",
