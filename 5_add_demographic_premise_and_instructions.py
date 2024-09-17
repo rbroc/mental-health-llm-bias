@@ -20,6 +20,8 @@ conditions = [
     "Depression",
     "Generalized Anxiety Disorder",
     "Schizophrenia",
+    "Other",
+    "None",
 ]  # TODO: remove if we add more questionnaires
 
 
