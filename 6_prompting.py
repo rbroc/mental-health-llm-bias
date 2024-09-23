@@ -7,7 +7,8 @@ import logging
 import fire
 import os
 
-tqdm.pandas()
+tqdm.pandas()    
+
 
 def get_completion(model_name_or_path, text):
 
@@ -43,10 +44,10 @@ def get_completion(model_name_or_path, text):
 
 def main():
     
-    test_data_input_path = '/home/Plaza/mental-health-llm-bias/outputs/final/phq-9_final.csv'
-    n_test_samples = 1000
-    model_name_or_path = 'gpt-4'
-    test_set = 'phq-9_final.csv'
+    test_data_input_path = '/home/Plaza/mental-health-llm-bias/outputs/final/phq-9_final_large.csv'
+    n_test_samples = 0
+    model_name_or_path = 'gpt-4o'
+    test_set = 'phq-9_final_large.csv'
 
     test_df = pd.read_csv(test_data_input_path)
     print(test_df)
@@ -62,7 +63,7 @@ def main():
 
     test_data_output_path = f'./evaluation/data/model_completions/{model_name_or_path}/{test_set}'
     print(test_data_output_path)
-    os.makedirs(test_data_output_path.rsplit("/", 1)[0])
+    os.makedirs(test_data_output_path.rsplit("/", 1)[0], exist_ok=True)
     logging.info(f"Creating new path {test_data_output_path.rsplit('/', 1)[0]}")
         
     test_data_output_path = f'{test_data_output_path}'
