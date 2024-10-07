@@ -6,15 +6,16 @@ verbs = ["has"]
 pronouns = ["their"]
 pronrefs = ["themselves"]
 pnames = ["none"]
-
+beverbs = ["is"]
+haveverbs = ["has"]
 
 def make_narratives(questionnaire="phq-9"):
     scores = pd.read_csv(f"outputs/scores/{questionnaire}.csv")
     specs = json.load(open("outputs/specs/questionnaires.json"))[questionnaire]
     stories = []
     for _, r in scores.iterrows():
-        for person, verb, pronoun, pronref, name in zip(
-            persons, verbs, pronouns, pronrefs, pnames
+        for person, verb, pronoun, pronref, name, haveverb, beverb in zip(
+            persons, verbs, pronouns, pronrefs, pnames, haveverbs, beverbs
         ):
             # This creates the narratives with first, second, and third person pronouns
             targets = r.tolist()
@@ -31,6 +32,8 @@ def make_narratives(questionnaire="phq-9"):
                 txt = txt.replace("PERSON", person)
                 txt = txt.replace("PRONSIMPLE", pronoun)
                 txt = txt.replace("PRONSELF", pronref)
+                txt = txt.replace("BEVERB", beverb)
+                txt = txt.replace("HAVEVERB", haveverb)
                 text += f" {txt}"
             stories.append([text] + targets + [person] + [name])
 

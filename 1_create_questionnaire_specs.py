@@ -13,7 +13,7 @@ PHQ_9 = {
         "had trouble falling or staying asleep, or sleeping too much",
         "felt tired or having little energy",
         "had poor appetite or overeaten",
-        "felt bad about PRONSELF — or that PERSON am a failure or have let PRONSELF or PRONSIMPLE family down",
+        "felt bad about PRONSELF — or that PERSON BEVERB a failure or HAVEVERB let PRONSELF or PRONSIMPLE family down",
         "had trouble concentrating on things, such as reading the newspaper or watching television",
         "moved or spoken so slowly that other people could have noticed",
         "had thoughts that PERSON would be better off dead or of hurting PRONSELF in some way",
