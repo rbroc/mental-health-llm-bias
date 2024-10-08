@@ -91,10 +91,12 @@ def make_final_data(questionnaire="phq-9", n_dem_combinations=100):
         ],
     )
     print(f"*** Saving: {df.shape[0]} examples ***")
+    df.drop('narrative', axis=1, inplace=True)
     df['text'] = df['text'].str.replace('\n', '')
     df.to_csv(
         f"outputs/final/{questionnaire}.csv", index=False,
     )
+    df.to_excel(f"outputs/final/{questionnaire}.xlsx")
 
 
 if __name__ == "__main__":
