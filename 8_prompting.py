@@ -9,7 +9,6 @@ import os
 
 tqdm.pandas()    
 
-
 def get_completion(model_name_or_path, text):
 
     time.sleep(1)
@@ -44,10 +43,10 @@ def get_completion(model_name_or_path, text):
 
 def main():
     
-    test_data_input_path = '/home/Plaza/mental-health-llm-bias/outputs/final/phq-9_final_large.csv'
+    test_data_input_path = '/home/Plaza/mental-health-llm-bias/outputs/final/phq-9.csv'
     n_test_samples = 0
     model_name_or_path = 'gpt-4o'
-    test_set = 'phq-9_final_large.csv'
+    test_set = 'phq-9.csv'
 
     test_df = pd.read_csv(test_data_input_path)
     print(test_df)
@@ -61,7 +60,7 @@ def main():
     test_df["model_completion"] = test_df.progress_apply(lambda x: get_completion(model_name_or_path, x.text), axis=1)
     test_df["model_completion"] = test_df["model_completion"].replace(r'\n',' ', regex=True)  
 
-    test_data_output_path = f'./evaluation/data/model_completions/{model_name_or_path}/{test_set}'
+    test_data_output_path = f'./evaluation/data/model_completions/paraphrases/{model_name_or_path}/{test_set}'
     print(test_data_output_path)
     os.makedirs(test_data_output_path.rsplit("/", 1)[0], exist_ok=True)
     logging.info(f"Creating new path {test_data_output_path.rsplit('/', 1)[0]}")
